@@ -1,0 +1,66 @@
+ create table bank(
+ accno number,
+ name varchar2(20),
+ bal number(10,2),
+ acctype number
+ );
+ 
+  create table personal_details (
+ accno number,
+ address varchar2(20),
+ phno number
+ );
+ 
+  create or replace procedure createAccount (
+ accnumber number,
+ actype number,
+ acname varchar2,
+ amt number,
+ addr varchar2,
+ phno number) is
+ begin
+ insert into bank values (accnumber , acname , amt, actype);
+ insert into personal_details values (accnumber , addr, phno);
+ end;
+ /
+ 
+ 
+ 
+ 
+ create or replace procedure getBalance (
+acno number,
+amt OUT number ) is
+begin
+select bal into amt from bank where accno = acno;
+end;
+/
+
+
+ CREATE OR REPLACE FUNCTION getBalanceF (acno number )
+ return number as
+ amt number;
+ begin
+ select bal into amt from bank where accno = acno;
+ return amt;
+ end;
+ /
+ 
+ 
+ create or replace package mypack as
+ TYPE mycursor is REF CURSOR;
+ end;
+ /
+
+Package created.
+
+create or replace function getAccountdetails (actype number)
+return mypack.mycursor as
+myresult mypack.mycurson;
+begin
+open myresult for
+select accno ,name bal from bank where acctype = actype;
+return myresult;
+end;
+/
+
+Warning: Function created with compilation errors.

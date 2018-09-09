@@ -1,0 +1,22 @@
+drop table personaldetails;
+drop type empaddress;
+
+create type empaddress as OBJECT (
+flatno number,
+street varchar2(20),
+city varchar2(15),
+state varchar2(10),
+pincode number);
+
+create table personaldetails (
+empno number,
+photo BLOB,
+permanent_address empaddress,
+present_address empaddress);
+
+
+create table profile (
+empno number,
+pro CLOB,
+permanent_address empaddress,
+present_address empaddress);

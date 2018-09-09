@@ -1,0 +1,7 @@
+create type visa_nos as VARRAY(5) of varchar2(16);
+
+create table emppassportDetails (
+empno number,
+passportno varchar2(10),
+visas_taken visa_nos
+);
